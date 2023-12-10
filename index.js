@@ -67,7 +67,9 @@ app.post("/current", async (req, res) => {
   const locationData = await getUserLocation();
   const city = locationData.city;
   const country = locationData.country;
+  const ipAddress = req.ip;
 
+  console.log('User IP:', ipAddress);
   const options = {
     method: "GET",
     url: "https://weatherapi-com.p.rapidapi.com/forecast.json",
