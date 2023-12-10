@@ -31,23 +31,7 @@ app.get("/", async (req, res) => {
     },
   };
   try {
-    const response = await axios.request(options);
-    const jsonData = response.data;
-    fs.writeFile(
-      "weather_data.json",
-      JSON.stringify(jsonData, null, 2),
-      (err) => {
-        if (err) {
-          console.error(err);
-          res
-            .status(500)
-            .json({ error: "Failed to write weather data to file" });
-          return;
-        }
-        console.log("Data written to weather_data.json");
-        res.json(jsonData); // Send the weather data as a JSON response
-      }
-    );
+    await axios.request(options);
     res.render("index.ejs");
   } catch (error) {
     console.error(error);
@@ -72,21 +56,6 @@ app.post("/city", async (req, res) => {
   try {
     const response = await axios.request(options);
     const jsonData = response.data;
-    fs.writeFile(
-      "weather_data.json",
-      JSON.stringify(jsonData, null, 2),
-      (err) => {
-        if (err) {
-          console.error(err);
-          res
-            .status(500)
-            .json({ error: "Failed to write weather data to file" });
-          return;
-        }
-        console.log("Data written to weather_data.json");
-        res.json(jsonData); // Send the weather data as a JSON response
-      }
-    );
     res.render("index.ejs", { content: jsonData });
   } catch (error) {
     console.error(error);
