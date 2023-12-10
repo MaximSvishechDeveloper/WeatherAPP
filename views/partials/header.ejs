@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.68">
+  <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+  <script src="https://kit.fontawesome.com/7363b7b980.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/styles/main.css">
+
+  <title>Weather app</title>
+</head>
+
+<body>
+    <div class="header">
+    <div class="search-container">
+        <form action="/city" method="post" role="search">
+        <i class="fa-solid fa-magnifying-glass fa-xl" style="color: black; margin-left:33px; margin-right: 20px;" ></i>
+        <input type="text" name="place" placeholder="Search for your preffered city...">
+        </form>
+      </div>
+      <form action="/current" method="post">
+      <button type="submit" id="locationButton"><i style="margin-right: 10px;" class="fa-solid fa-location-crosshairs"></i>Current Location</button>
+    </form>
+    </div>
+  <main>

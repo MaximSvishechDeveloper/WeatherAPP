@@ -1,0 +1,119 @@
+<%- include("partials/header.ejs") %>
+
+<% if (locals.content){ %>
+
+<div class="grid-container">
+    <div class="block location">
+        <h2><%= content.location.name %></h2>
+        <span class="hour"><%= content.location.localtime.split(' ')[1]; %></span>
+           <span class="date"><%= content.location.localtime.split(' ')[0]; %></span>
+    </div>
+    <div class="block weather">
+        <div style="width:20%; box-sizing: border-box; float: left;" class="left-weather">
+            <span class="big"><%= content.current.temp_c %> &#8451;</span>
+            <div style="display: block;">
+            <span class="feels-like">Feels like:</span>
+            <span class="feels-like-tempature"><%= content.current.feelslike_c %>&#8451;</span>
+           <div style="overflow: hidden;">
+            <img style= "vertical-align: middle; margin-top: 30px; margin-left: 30px; float: left; margin-right: 5px; clear: both;" width="40px" height="40px" src= "/assets/sunrise-white1.png">
+            <span style="display: block;" class="sunrise">Sunrise</span>
+            <span class="time" style="display: block;"><%= content.forecast.forecastday[0].astro.sunrise %></span>
+        </div>
+        <div style="overflow: hidden;">
+            <img style= "vertical-align: middle; margin-top: 30px; margin-left: 30px; float: left; margin-right: 5px; clear: both;" width="40px" height="40px" src= "/assets/sunset-white1.png">
+            <span style="display: block;" class="sunrise">Sunset</span>
+            <span class="time" style="display: block;"><%= content.forecast.forecastday[0].astro.sunset %></span>
+        </div>
+        </div>
+        </div>
+        <div style="width:33.33%; box-sizing: border-box; float: left; text-align: center;" class="center-weather">
+            <img style="vertical-align: middle;" width="250px" height="250px" src= <%=content.current.condition.icon %>>
+            <span style="margin: 0; font-size: 45px;" class="big"><%=content.current.condition.text %></span>
+        </div>
+        <div class="right-weather">
+            <div style="text-align: center;">
+                <img style="margin-top: 30px;" width="60px" height="60px" src= "/assets/humidity1.png">
+                <span class="number"><%=content.current.humidity %>%</span>
+                <span class="text">Humidity</span>
+            </div>
+            <div style="text-align: center;">
+                <img style="vertical-align: middle; margin-top: 30px;" width="60px" height="60px" src= "/assets/wind1.png">
+                <span class="number"><%=content.current.wind_kph %>km/h</span>
+                <span class="text">wind speed</span>
+            </div>
+            <div style="text-align: center;">
+                <img style="vertical-align: middle; " width="60px" height="60px" src= "/assets/pressure-white1.png">
+                <span class="number"><%=content.current.pressure_mb %>hPa</span>
+                <span class="text">Pressure</span>
+            </div>
+            <div style="text-align: center;">
+                <img style="vertical-align: middle; " width="60px" height="60px" src= "/assets/uv-white1.png">
+                <span class="number"><%=content.current.uv %></span>
+                <span class="text">UV</span>
+            </div>
+        </div>
+        
+    </div>
+    <div class="block day-forecast">
+        <h2 class="day-forecast-title">3 Days Forecast:</h2>
+        <ul>
+            <li>
+              <img style="vertical-align: middle;" width="90px" height="90px" src= <%= content.forecast.forecastday[0].day.condition.icon %>>
+              <span class="degree"><%= content.forecast.forecastday[0].day.maxtemp_c%>&#8451;</span>
+              <span class="date"><% let nextDay = new Date(); %>
+                <%nextDay.setDate(nextDay.getDate() + 1)%>
+                <%= new Intl.DateTimeFormat('en-US', { weekday: 'long', month: 'short', day: 'numeric' }).format(nextDay);%>
+                 </span>
+            </li>
+            <li>
+                <img style="vertical-align: middle;" width="90px" height="90px" src= <%= content.forecast.forecastday[1].day.condition.icon %>>
+                <span class="degree"><%= content.forecast.forecastday[1].day.maxtemp_c%>&#8451;</span>
+                <span class="date"><% nextDay = new Date(); %>
+                    <%nextDay.setDate(nextDay.getDate() + 2)%>
+                    <%= new Intl.DateTimeFormat('en-US', { weekday: 'long', month: 'short', day: 'numeric' }).format(nextDay);%>
+                     </span>
+            </li>
+            <li>
+                <img style="vertical-align: middle;" width="90px" height="90px" src= <%= content.forecast.forecastday[2].day.condition.icon %>>
+                <span class="degree"><%= content.forecast.forecastday[2].day.maxtemp_c%>&#8451;</span>
+                <span class="date"><% nextDay = new Date(); %>
+                    <%nextDay.setDate(nextDay.getDate() + 3)%>
+                    <%= new Intl.DateTimeFormat('en-US', { weekday: 'long', month: 'short', day: 'numeric' }).format(nextDay);%>
+                     </span>
+              </li>
+              
+          </ul>
+    </div>
+    <div class="block hour-forecast">
+        <h2 class="day-forecast-title">Hourly Forecast:</h2>
+        <div class="day-time"> <span style="display: block;">12:00</span>
+            <img style="vertical-align: middle;" width="60px" height="60px" src=<%= content.forecast.forecastday[0].hour[12].condition.icon%>>
+            <span style="display: block;" class="degree"><%= content.forecast.forecastday[0].hour[12].temp_c%>&#8451;</span>
+            <img style="vertical-align: middle;" width="60px" height="60px" src="/assets/navigation1.png">
+            <span style="display: block;" class="degree"><%= content.forecast.forecastday[0].hour[12].wind_kph%>km/h</span></div>
+        <div class="day-time"> <span style="display: block;">15:00</span>
+            <img style="vertical-align: middle;" width="60px" height="60px" src=<%= content.forecast.forecastday[0].hour[15].condition.icon%>>
+            <span style="display: block;" class="degree"><%= content.forecast.forecastday[0].hour[15].temp_c%>&#8451;</span>
+            <img style="vertical-align: middle;" width="60px" height="60px" src="/assets/navigation1.png">
+            <span style="display: block;" class="degree"><%= content.forecast.forecastday[0].hour[15].wind_kph%>km/h</span></div>
+        <div class="day-time"> <span style="display: block;">18:00</span>
+            <img style="vertical-align: middle;" width="60px" height="60px" src=<%= content.forecast.forecastday[0].hour[18].condition.icon%>>
+            <span style="display: block;" class="degree"><%= content.forecast.forecastday[0].hour[18].temp_c%>&#8451;</span>
+            <img style="vertical-align: middle;" width="60px" height="60px" src="/assets/navigation1.png">
+            <span style="display: block;" class="degree"><%= content.forecast.forecastday[0].hour[18].wind_kph%>km/h</span></div>
+        <div class="night-time"> <span style="display: block;">21:00</span>
+            <img style="vertical-align: middle;" width="60px" height="60px" src=<%= content.forecast.forecastday[0].hour[21].condition.icon%>>
+            <span style="display: block;" class="degree"><%= content.forecast.forecastday[0].hour[21].temp_c%>&#8451;</span>
+            <img style="vertical-align: middle;" width="60px" height="60px" src="/assets/navigation1.png">
+            <span style="display: block;" class="degree"><%= content.forecast.forecastday[0].hour[21].wind_kph%>km/h</span></div>
+        <div class="night-time"> <span style="display: block;">00:00</span>
+            <img style="vertical-align: middle;" width="60px" height="60px" src=<%= content.forecast.forecastday[0].hour[0].condition.icon%>>
+            <span style="display: block;" class="degree"><%= content.forecast.forecastday[0].hour[0].temp_c%>&#8451;</span>
+            <img style="vertical-align: middle;" width="60px" height="60px" src="/assets/navigation1.png">
+            <span style="display: block;" class="degree"><%= content.forecast.forecastday[0].hour[0].wind_kph%>km/h</span></div>
+    </div>
+</div>
+<%} else {%>
+<h1 >Hello, please enter the city of you choice, you may also mention the country</h1>
+<% }%>
+<%- include("partials/footer.ejs") %>
